@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [geoLoc, setGeoLoc] = useState({latitude: 0; longitude: 0});
 
   useEffect(() => {
     setIsLoading(true);
@@ -17,8 +18,14 @@ function App() {
   }, []);
 
   const getGeolocalisation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+      setGeoLoc({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    }, () => {
+      setError(true)
     });
   };
   return (
