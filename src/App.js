@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [geoLoc, setGeoLoc] = useState({ latitude: 0, longitude: 0 });
+  const [weatherUnits, setWeatherUnits] = useState();
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,15 +35,26 @@ function App() {
     );
   };
 
-  const fetchWeather = async (url) => {
+  const fetchWeather = useCallback(async (url) => {
     setError(false);
 
     try {
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
+
+      if (Object.keys(data).length === 0) {
+        setError(true);
+      } else {
+        // formatted daily data
+        // unités
+        setWeatherUnits({
+          rain: data.daily_units.precipitation_sum,
+          temperature: data.daily_units.temperature_2m_max,
+          wind: data.daily_units.windspeed_10m_max,
+        });
+      }
     } catch (error) {}
-  };
+  }, []);
 
   return <div className="App"> Hello </div>;
 }
