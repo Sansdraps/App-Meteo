@@ -12,7 +12,24 @@ const formatWeatherDataDaily = (data) => {
       dataDaily[i][key] = dayValue;
     }
   });
-  console.log(dataDaily);
+  // french day
+  dataDaily.forEach((data) => {
+    const date = new Date(data.time);
+    const dayIndex = date.getDay();
+    data.day = frenchDays[dayIndex];
+  });
+
+return dataDaily;
 };
+
+const frenchDays = [
+  'Dimanche',
+  'Lundi',
+  'Mardi',
+  'Mercredi',
+  'Jeudi',
+  'Vendredi',
+  'Samedi',
+];
 
 export default formatWeatherDataDaily;

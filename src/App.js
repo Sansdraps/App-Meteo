@@ -5,6 +5,31 @@ function App() {
   const [error, setError] = useState(false);
   const [geoLoc, setGeoLoc] = useState({ latitude: 0, longitude: 0 });
   const [weatherUnits, setWeatherUnits] = useState();
+  const [weatherData, setWeatherData] = useState([]);
+
+  const fetchWeather = useCallback(async (url) => {
+    setError(false);
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (Object.keys(data).length === 0) {
+        setError(true);
+      } else {
+        // formatted daily data
+        const frormatedDailyData = formatWeatherDataDaily(data.daily);
+        setWeatherData(frormatedDailyData);
+
+        // unités
+        setWeatherUnits({
+          rain: data.daily_units.precipitation_sum,
+          temperature: data.daily_units.temperature_2m_max,
+          wind: data.daily_units.windspeed_10m_max,
+        });
+      }
+    } catch (error) {}
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -16,10 +41,11 @@ function App() {
     }
 
     getGeolocalisation();
+
     fetchWeather(
-      'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,windspeed_10m_max&timezone=Europe%2FLondon'
-    );
-  }, []);
+      `https://api.open-meteo.com/v1/forecast?latitude=${geoLoc.latitude}&longitude=${geoLoc.longitude}&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,windspeed_10m_max&timezone=Europe%2FLondon`
+    ).then(() => setIsLoading(false));
+  }, [fetchWeather, geoLoc.latitude, geoLoc.longitude]);
 
   const getGeolocalisation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -35,29 +61,32 @@ function App() {
     );
   };
 
-  const fetchWeather = useCallback(async (url) => {
-    setError(false);
+  // si chargement
+  if(isLoading){
+    return (
+      <div>
+        <p>Chargement ...</p>
+      </div>
+    )
+  }
 
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
+  // si error
+  if(error){
+    return (
+      <div>
+        <p>Une erreur est survenue lors de la récupérations des prévisions météo...</p>
+      </div>
+    )
+  }
 
-      if (Object.keys(data).length === 0) {
-        setError(true);
-      } else {
-        // formatted daily data
-        formatWeatherDataDaily(data.daily);
-        // unités
-        setWeatherUnits({
-          rain: data.daily_units.precipitation_sum,
-          temperature: data.daily_units.temperature_2m_max,
-          wind: data.daily_units.windspeed_10m_max,
-        });
-      }
-    } catch (error) {}
-  }, []);
-
-  return <div className="App"> Hello </div>;
+  return <div className="">
+    <div>
+      {/*today*/}
+      <div>
+        {/* {map sur daily} */}
+      </div>
+    </div>
+  </div>;
 }
 
 export default App;
