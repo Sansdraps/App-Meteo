@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-
+import formatWeatherDataDaily from './utils/formatWeatherDataDaily';
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -46,6 +46,7 @@ function App() {
         setError(true);
       } else {
         // formatted daily data
+        formatWeatherDataDaily(data.daily);
         // unités
         setWeatherUnits({
           rain: data.daily_units.precipitation_sum,
