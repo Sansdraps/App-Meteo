@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Today = () => {
+const Today = ({ data , weatherUnits}) => {
   return (
     <div>Today</div>
   )
 }
 
-export default Today
+export default Today;

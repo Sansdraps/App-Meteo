@@ -87,12 +87,14 @@ function App() {
   return (
     <div className="">
       <div>
-        <Today />
+        <Today data={weatherData[0]} weatherUnits={weatherUnits} />
         <div>
           {weatherData &&
             weatherData
               .slice(1, weatherData.length)
-              .map((data, index) => <WeekDay />)}
+              .map((data, index) => (
+                <WeekDay key={index} data={data} weatherUnits={weatherUnits} />
+              ))}
         </div>
       </div>
     </div>
