@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import formatWeatherDataDaily from './utils/formatWeatherDataDaily';
+import Today from './components/Today';
+import WeekDay from './components/WeekDay';
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -62,31 +64,39 @@ function App() {
   };
 
   // si chargement
-  if(isLoading){
+  if (isLoading) {
     return (
       <div>
         <p>Chargement ...</p>
       </div>
-    )
+    );
   }
 
   // si error
-  if(error){
+  if (error) {
     return (
       <div>
-        <p>Une erreur est survenue lors de la récupérations des prévisions météo...</p>
+        <p>
+          Une erreur est survenue lors de la récupérations des prévisions
+          météo...
+        </p>
       </div>
-    )
+    );
   }
 
-  return <div className="">
-    <div>
-      {/*today*/}
+  return (
+    <div className="">
       <div>
-        {/* {map sur daily} */}
+        <Today />
+        <div>
+          {weatherData &&
+            weatherData
+              .slice(1, weatherData.length)
+              .map((data, index) => <WeekDay />)}
+        </div>
       </div>
     </div>
-  </div>;
+  );
 }
 
 export default App;
