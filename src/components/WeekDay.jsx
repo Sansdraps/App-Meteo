@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { getEmojis } from '../utils/getEmojis'
 
 const WeekDay = ({ data, weatherUnits }) => {
   const [weatherEmojis, setWeatherEmojis] = useState("")
@@ -10,12 +11,34 @@ const WeekDay = ({ data, weatherUnits }) => {
     const avTemp = ((data.temperature_2m_max + data.temperature_2m_min) / 2
     ).toFixed(1);
 
-    const weatherEmojis = getEmojis();
-  }, [])
+    const weatherEmojis = getEmojis(
+      avTemp,
+      data.precipitation_sum,
+      data.windspeed_10_max
+    );
+
+    setAverageTemperature(avTemp);
+    setWeatherEmojis(weatherEmojis);
+  }, [data])
+
+  if (!data || !weatherUnits) {
+    return <div>Erreur...</div>;
+  }
 
   return (
-    <div>WeekDay</div>
-  )
-}
+    <div>
+      <p>{data.day}</p>
+      <p>
+        {averageTemperature}{" "}
+        <span>
+          {weatherUnits.temperature}
+        </span>
+      </p>
+      <div>
+        {weatherEmojis && <div>{weatherEmojis}</div>}
+      </div>
+    </div>
+  );
+};
 
 export default WeekDay;
