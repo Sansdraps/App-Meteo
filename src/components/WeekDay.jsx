@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getEmojis } from '../utils/getEmojis'
+import { getEmojis } from '../utils/getemojis'
 
 const WeekDay = ({ data, weatherUnits }) => {
   const [weatherEmojis, setWeatherEmojis] = useState("")
