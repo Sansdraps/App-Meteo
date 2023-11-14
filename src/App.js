@@ -66,8 +66,8 @@ function App() {
   // si chargement
   if (isLoading) {
     return (
-      <div>
-        <p>Chargement ...</p>
+      <div className="min-h-screen h-max bg-cyan-600 flex justify-center items-start p-8 md:px-20 ">
+        <p className="text-center">Chargement ...</p>
       </div>
     );
   }
@@ -75,8 +75,8 @@ function App() {
   // si error
   if (error) {
     return (
-      <div>
-        <p>
+      <div className="min-h-screen h-max bg-cyan-600 flex justify-center items-start p-8 md:px-20 ">
+        <p className="text-center text-red-500">
           Une erreur est survenue lors de la récupérations des prévisions
           météo...
         </p>
@@ -85,8 +85,8 @@ function App() {
   }
 
   return (
-    <div className="">
-      <div>
+    <div className="min-h-screen h-max bg-cyan-600 flex justify-center items-start p-8 md:px-20 ">
+      <div className="w-full max-w-7xl bg-gradient-to-r from-cyan-500 to to-blue-500 ">
         <Today data={weatherData[0]} weatherUnits={weatherUnits} />
         <div>
           {weatherData &&
