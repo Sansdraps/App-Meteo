@@ -86,9 +86,9 @@ function App() {
 
   return (
     <div className="min-h-screen h-max bg-cyan-600 flex justify-center items-start p-8 md:px-20 ">
-      <div className="w-full max-w-7xl bg-gradient-to-r from-cyan-500 to to-blue-500 ">
+      <div className="w-full max-w-7xl bg-gradient-to-r from-cyan-500 to to-blue-500 rounded-lg shadow-lg p-4 md:px-12 md:py-8 xl:py-12 xl:px-28">
         <Today data={weatherData[0]} weatherUnits={weatherUnits} />
-        <div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-col-6">
           {weatherData &&
             weatherData
               .slice(1, weatherData.length)
