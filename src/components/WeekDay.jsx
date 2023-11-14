@@ -26,15 +26,15 @@ const WeekDay = ({ data, weatherUnits }) => {
   }
 
   return (
-    <div className='text-center p-6 rounded-md bg-white/30 shadow-md flex justify-center items-center md:flex-col'>
-      <p className='text-lg font-bold md:mb-1'>{data.day}</p>
-      <p className='ml-6 md:mb-4 md:ml-0'>
+    <div className="text-center p-6 rounded-md bg-white/30 shadow-md flex justify-center items-center md:flex-col">
+      <p className="text-lg font-bold md:mb-1">{data.day}</p>
+      <p className="ml-6 md:mb-4 md:ml-0">
         {averageTemperature}{" "}
-        <span className='text-xs font-semibold'>
+        <span className="text-xs font-semibold">
           {weatherUnits.temperature}
         </span>
       </p>
-      <div className='ml-6 text-4xl md:ml-0'>
+      <div className="ml-6 text-4xl md:ml-0">
         {weatherEmojis && <div>{weatherEmojis}</div>}
       </div>
     </div>

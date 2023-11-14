@@ -25,24 +25,24 @@ const TodayCard = ({ data, weatherUnits }) => {
 
   if (!data || !weatherUnits) {
     return (
-      <div>
+      <div className="text-2xl text-center text-red-500">
         Aucune données. Affichage impossible.
       </div>
     );
   }
 
   return (
-    <div>
-      <div>
-        <div>
-          <div>
+    <div className="max-w-max xl:ml-auto mx-auto">
+      <div className="flex mb-20 mt-12 flex-col xl:flex-row ">
+        <div className="flex flex-col">
+          <div className="text-8xl mb-8 text-center xl:text-right ">
             {weatherEmojis}
           </div>
-          <div>
+          <div className="text-3xl font-bold text-center text-white mt-auto mb-8 xl:mt-auto xl:mb-0">
             Aujourd'hui, {data.day}
           </div>
         </div>
-        <div>
+        <div className="text-xl ml-12 xl:pl-4 xl:border-l-2 xl:border-l-indigo-500">
           <p>
             {emojis.calendar} Jour : {data.day}
           </p>
